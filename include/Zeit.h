@@ -4,7 +4,7 @@
 
 class zeit {
     private:
-        unsigned long alte_zeit;
+        unsigned long long alte_zeit;
 
     public:
         zeit();

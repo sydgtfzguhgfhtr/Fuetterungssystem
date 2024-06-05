@@ -25,7 +25,6 @@ void zeit::vergangene_zeit() {
             wochen++;
         }
     }
-
 };
 
 void zeit::zeit_zuruecksetzen() {

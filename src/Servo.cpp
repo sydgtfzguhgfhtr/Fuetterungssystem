@@ -14,8 +14,8 @@ servo::servo(uint8_t PIN, float Frequenz, bool in_Winkel)
 }
 
 void servo::Winkel(bool winkel) {
-    uint16_t obere_grenze = 1425; // = 120°
-    uint16_t untere_grenze = 2000; // = 60°
+    uint16_t obere_grenze = 1425; // soll dann Obergrenze der Bewegung werden
+    uint16_t untere_grenze = 2000; // soll dann Untergrenze der Bewegung werden
   if (winkel){
     Einschaltdauer = obere_grenze;
   } else {

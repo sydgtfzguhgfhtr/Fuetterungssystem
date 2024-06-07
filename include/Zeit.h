@@ -10,6 +10,7 @@ class zeit {
         zeit();
         void vergangene_zeit();
         void zeit_zuruecksetzen();
+        uint32_t sekunden = 0;
         uint32_t minuten = 0;
         uint32_t stunden = 0;
         uint32_t tage = 0;

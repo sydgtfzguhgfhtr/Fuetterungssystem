@@ -4,11 +4,17 @@
 #include "Ultraschallsensor.h"
 #include "Servo.h"
 
-zeit Zeit;
+zeit Zeit_zwischen_Fuetterung;
+zeit Dauer_Fuetterung;
+servo Servo(D9,50,true);
 
 void setup() {
+  pinMode(D9,OUTPUT);
 }
 
 void loop() {
-  Zeit.vergangene_zeit();
+  // Zeit_zwischen_Fuetterung.vergangene_zeit();
+  // Dauer_Fuetterung.vergangene_zeit();
+  Servo.Winkel(true);
+  Servo.Halten();
 }

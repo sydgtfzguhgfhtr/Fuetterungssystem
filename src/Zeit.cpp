@@ -12,9 +12,12 @@ zeit::zeit() {
 };
 
 void zeit::vergangene_zeit() {
-    if (millis() - alte_zeit >= 60000) {
-        minuten++;
+    if (millis() - alte_zeit >= 1000) {
+        sekunden++;
         alte_zeit = millis();
+        if (sekunden >= 60*(minuten+1)) {
+            minuten++;
+        }
         if (minuten >= 60*(stunden+1)) {
             stunden++;
         }

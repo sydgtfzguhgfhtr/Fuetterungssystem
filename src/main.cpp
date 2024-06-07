@@ -9,7 +9,6 @@ zeit Dauer_Fuetterung;
 servo Servo(D9,50,true);
 
 void setup() {
-  pinMode(D9,OUTPUT);
 }
 
 void loop() {

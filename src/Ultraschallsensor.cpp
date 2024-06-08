@@ -12,6 +12,7 @@ ultraschallsensor::ultraschallsensor(uint8_t echo_pin, uint8_t trigger_pin) {
   digitalWrite(trig,HIGH);
 }
 
+
 float ultraschallsensor::messung() {
     digitalWrite(trig,LOW);
     delayMicroseconds(2);

@@ -16,7 +16,7 @@ class servo {
     uint8_t verstellwinkel = 60; //Verstellwinkel zum Öffnen der Lochscheibe
   
   public:
-    servo(uint8_t PIN, float Frequenz);
+    servo(uint8_t PIN, float Frequenz, bool winkel);
     void Winkel(bool winkel);
     void einstellen();
     void Halten(); //PWM zum Halten des Servoverstellwinkels

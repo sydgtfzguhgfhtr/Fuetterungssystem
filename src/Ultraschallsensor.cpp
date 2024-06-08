@@ -21,7 +21,7 @@ float ultraschallsensor::messung() {
 
     uint16_t duration = pulseIn(echo,HIGH);
     float s_cm = duration*0.034/2;
-    if ((messung_alt <= s_cm+2 || messung_alt >= s_cm-2) && s_cm <= max_hoehe) {
+    if ((messung_alt <= s_cm+2 || messung_alt >= s_cm-2) && s_cm <= max_hoehe) { // vermeidet Fehlmessungen
       messung_alt = s_cm;
       return s_cm;
     } else 

@@ -6,14 +6,15 @@
 
 zeit Zeit_zwischen_Fuetterung;
 zeit Dauer_Fuetterung;
-servo Servo(D9,50,true);
+servo Servo(D9,50);
 
 void setup() {
+  Serial.begin(115200);
 }
 
 void loop() {
   // Zeit_zwischen_Fuetterung.vergangene_zeit();
   // Dauer_Fuetterung.vergangene_zeit();
-  Servo.Winkel(true);
+  Servo.einstellen();
   Servo.Halten();
 }

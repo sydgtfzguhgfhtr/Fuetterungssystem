@@ -4,17 +4,14 @@
 #include "Ultraschallsensor.h"
 #include "Servo.h"
 
-zeit Zeit_zwischen_Fuetterung;
-zeit Dauer_Fuetterung;
-servo Servo(D9,50);
+ultraschallsensor US(D5, D6);
 
 void setup() {
   Serial.begin(115200);
 }
 
 void loop() {
-  // Zeit_zwischen_Fuetterung.vergangene_zeit();
-  // Dauer_Fuetterung.vergangene_zeit();
-  Servo.einstellen();
-  Servo.Halten();
+  float strecke = US.messung();
+  Serial.println(strecke);
+  delay(100);
 }

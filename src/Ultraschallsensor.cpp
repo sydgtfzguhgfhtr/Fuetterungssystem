@@ -22,8 +22,10 @@ float ultraschallsensor::messung(bool messen) {
 
     uint16_t duration = pulseIn(echo,HIGH);
     float s_cm = duration*0.034/2;
-    if ((messung_alt <= s_cm+2 || messung_alt >= s_cm-2) && s_cm <= max_hoehe && messen) { // vermeidet Fehlmessungen
+    if (s_cm <= max_hoehe && messen) { // vermeidet Fehlmessungen
       messung_alt = s_cm;
+      Serial.print("Messung: ");
+      Serial.println(s_cm);
       return s_cm;
     } else 
       return messung_alt;

@@ -34,8 +34,6 @@ void setup() {
   client.begin("94.130.103.21",net);
   client.onMessage(messageReceived);
   connect();
-  // client.publish(topic_fuettren,"test");
-  // client.publish(topic_menge,"test");
 }
 
 void loop() {
@@ -64,7 +62,6 @@ void loop() {
   Servo.Winkel(servo_auf);
   Servo.Halten();
   US.messung(messen);
-  // client.publish("/Fuetterung/test","test");
 }
 
 

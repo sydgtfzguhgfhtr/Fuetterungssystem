@@ -11,5 +11,5 @@ class ultraschallsensor {
 
     public:
         ultraschallsensor(uint8_t echo_pin, uint8_t trig_pin);
-        float messung();
+        float messung(bool messen);
 };

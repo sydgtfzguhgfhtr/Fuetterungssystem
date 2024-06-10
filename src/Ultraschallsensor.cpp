@@ -13,7 +13,7 @@ ultraschallsensor::ultraschallsensor(uint8_t echo_pin, uint8_t trigger_pin) {
 }
 
 
-float ultraschallsensor::messung() {
+float ultraschallsensor::messung(bool messen) {
     digitalWrite(trig,LOW);
     delayMicroseconds(2);
     digitalWrite(trig,HIGH);
@@ -22,7 +22,7 @@ float ultraschallsensor::messung() {
 
     uint16_t duration = pulseIn(echo,HIGH);
     float s_cm = duration*0.034/2;
-    if ((messung_alt <= s_cm+2 || messung_alt >= s_cm-2) && s_cm <= max_hoehe) { // vermeidet Fehlmessungen
+    if ((messung_alt <= s_cm+2 || messung_alt >= s_cm-2) && s_cm <= max_hoehe && messen) { // vermeidet Fehlmessungen
       messung_alt = s_cm;
       return s_cm;
     } else 

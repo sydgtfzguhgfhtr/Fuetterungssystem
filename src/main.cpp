@@ -18,8 +18,8 @@ const String topic_fuettren = "/Fuetterung/fuettern";
 const String topic_menge = "/Fuetterung/menge_aendern";
 const String topic_fuellstand_senden = "/Fuetterung_fuellstand";
 
-const char ssid[] = "Galaxy A52s 5G0AE6";
-const char pass[] = "xxbs7435";
+const char ssid[] = "xxxxxxxxx";
+const char pass[] = "g,kjhrtd";
 WiFiClient net;
 MQTTClient client;
 uint64_t alte_zeit_mqtt = millis();

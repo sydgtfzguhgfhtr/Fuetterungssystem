@@ -4,8 +4,8 @@
 #include "Ultraschallsensor.h"
 #include "Servo.h"
 
-servo Servo(D9,50,true);
-ultraschallsensor US(D6,D7);
+Servo servo(D9,50,false);
+Ultraschallsensor us(D6,D7);
 bool fuettern = false;
 bool servo_auf = false;
 bool messen = false;
@@ -14,12 +14,14 @@ uint32_t futtermenge = 100;
 uint32_t fuetterzeit = 2000;
 uint16_t messzeit = 50;
 
-const String topic_fuettren = "/Fuetterung/fuettern";
+const String topic_fuettern = "/Fuetterung/fuettern";
+const String topic_auf = "/Fuetterung/auf";
+const String topic_zu = "/Fuetterung/zu";
 const String topic_menge = "/Fuetterung/menge_aendern";
 const String topic_fuellstand_senden = "/Fuetterung_fuellstand";
 
-const char ssid[] = "xxxxxxxxx";
-const char pass[] = "g,kjhrtd";
+const char ssid[] = "Galaxy A52s 5G0AE6";
+const char pass[] = "---------";
 WiFiClient net;
 MQTTClient client;
 uint64_t alte_zeit_mqtt = millis();
@@ -28,6 +30,7 @@ void connect();
 void messageReceived(String &topic, String &payload);
 
 void setup() {
+  servo.Winkel(false);
   Serial.begin(115200);
   WiFi.begin(ssid,pass);
 
@@ -59,21 +62,22 @@ void loop() {
     messen = false;
   }
 
-  Servo.Winkel(servo_auf);
-  Servo.Halten();
-  US.messung(messen);
+  servo.Winkel(servo_auf);
+  servo.Halten();
+  // us.messung(messen);
 }
 
 
 
 void messageReceived(String &topic, String &payload) {
   Serial.println("incoming: " + topic + " - " + payload);
-  if (topic == topic_fuettren) {
+  if (topic == topic_fuettern) {
     fuettern = true;
     Serial.println("Fuettern");
   }
   if (topic == topic_menge) {
     futtermenge = payload.toInt();
+    fuetterzeit = futtermenge;
     Serial.print("menge:");
     Serial.println(futtermenge);
   }

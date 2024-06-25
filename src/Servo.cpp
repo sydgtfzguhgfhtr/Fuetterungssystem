@@ -3,7 +3,7 @@
 #include <ESP8266WiFi.h>  
 #include "Servo.h"
 
-servo::servo(uint8_t PIN, float Frequenz, bool winkel) {
+Servo::Servo(uint8_t PIN, float Frequenz, bool winkel) {
   pin = PIN;
   double konvert = 1e6/Frequenz;
   Periodendauer_ms = round(konvert); //ms
@@ -13,10 +13,10 @@ servo::servo(uint8_t PIN, float Frequenz, bool winkel) {
 }
 
 
-void servo::Winkel(bool offen) { // true = 90°+verstellwinkel/2, false = 90°-verstellwinkel/2
+void Servo::Winkel(bool offen) { 
 
-  uint16_t obere_grenze = ms_0_grad + (ms_180_grad-ms_0_grad)*((90+verstellwinkel/2)-0)/(180-0); // lineare Interpolation zw. 0° und 180° für 90°+verstellwinkel/2
-  uint16_t untere_grenze = ms_0_grad + (ms_180_grad-ms_0_grad)*((90-verstellwinkel/2)-0)/(180-0); // lineare Interpolation zw. 0° und 180° für 90°-verstellwinkel/2
+  uint16_t obere_grenze = 700; //ms
+  uint16_t untere_grenze = 1060; //ms
 
   if (offen) {
     Einschaltdauer = obere_grenze;
@@ -26,7 +26,7 @@ void servo::Winkel(bool offen) { // true = 90°+verstellwinkel/2, false = 90°-v
 }
 
 
-void servo::einstellen() { //Serial.begin() in setup
+void Servo::einstellen() { //Serial.begin() in setup
   if (Serial.available()) {
     delay(5);
     String input = "";
@@ -38,7 +38,7 @@ void servo::einstellen() { //Serial.begin() in setup
 }
 
 
-void servo::Halten() { // PWM
+void Servo::Halten() { // PWM
   if (micros()-micros_alt >= Periodendauer_ms) {// prüft ob eine Periode vergangen ist
     //PWM Signal 
     micros_alt = micros();

@@ -3,7 +3,7 @@
 #include <ESP8266WiFi.h>  
 #include "Ultraschallsensor.h"
 
-ultraschallsensor::ultraschallsensor(uint8_t echo_pin, uint8_t trigger_pin) {
+Ultraschallsensor::Ultraschallsensor(uint8_t echo_pin, uint8_t trigger_pin) {
   echo = echo_pin;
   trig = trigger_pin;
 
@@ -13,7 +13,7 @@ ultraschallsensor::ultraschallsensor(uint8_t echo_pin, uint8_t trigger_pin) {
 }
 
 
-float ultraschallsensor::messung(bool messen) {
+float Ultraschallsensor::messung(bool messen) {
     digitalWrite(trig,LOW);
     delayMicroseconds(2);
     digitalWrite(trig,HIGH);

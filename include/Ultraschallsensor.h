@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>  
 
-class ultraschallsensor {
+class Ultraschallsensor {
     private:
         uint8_t echo;
         uint8_t trig;
@@ -10,6 +10,6 @@ class ultraschallsensor {
         float max_hoehe = 50;
 
     public:
-        ultraschallsensor(uint8_t echo_pin, uint8_t trig_pin);
+        Ultraschallsensor(uint8_t echo_pin, uint8_t trig_pin);
         float messung(bool messen);
 };

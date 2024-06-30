@@ -28,6 +28,8 @@ uint64_t alte_zeit_mqtt = millis();
 
 void connect();
 void messageReceived(String &topic, String &payload);
+void fuetterung();
+
 
 void setup() {
   servo.Winkel(false);
@@ -40,6 +42,12 @@ void setup() {
 }
 
 void loop() {
+  fuetterung();
+}
+
+//Funktionen:
+
+void fuetterung() {
   if (millis() - alte_zeit_mqtt >= 50) {
     client.loop();
     alte_zeit_mqtt = millis();

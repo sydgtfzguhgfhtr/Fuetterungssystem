@@ -16,8 +16,6 @@ uint16_t messzeit = 50;
 float entf;
 
 const String topic_fuettern = "/Fuetterung/fuettern";
-const String topic_auf = "/Fuetterung/auf";
-const String topic_zu = "/Fuetterung/zu";
 const String topic_menge = "/Fuetterung/menge_aendern";
 const String topic_fuellstand_senden = "/Fuetterung_fuellstand";
 
@@ -49,13 +47,16 @@ void loop() {
 //Funktionen:
 
 void fuetterung() {
+  servo.Halten();
+  servo.Winkel(servo_auf);
+
   if (millis() - alte_zeit_mqtt >= 50) {
     client.loop();
     alte_zeit_mqtt = millis();
     if (!client.connected()) {
       Serial.println(String(client.connected()));
       connect();
-  }
+    }
   }
   if (fuettern) {
     zeit_alt = millis();
@@ -68,13 +69,17 @@ void fuetterung() {
     messen = true;
   }
   if ((millis() - zeit_alt >= messzeit) && messen) {
-    client.publish(topic_fuellstand_senden, String(entf));
-    messen = false;
+    entf = us.messung();
+    if (entf == -1) {
+      messen = true;
+    } else if (entf == -10) {
+      messen = false;
+      client.publish(topic_fuellstand_senden, "Fehler beim Messen; Messung wird abgebrochen!");
+    } else {
+      client.publish(topic_fuellstand_senden, String(us.fuellstand(entf)));
+      messen = false;
+    }
   }
-
-  servo.Winkel(servo_auf);
-  servo.Halten();
-  entf = us.messung(messen);
 }
 
 

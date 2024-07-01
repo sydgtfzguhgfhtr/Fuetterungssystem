@@ -15,13 +15,13 @@ Servo::Servo(uint8_t PIN, float Frequenz, bool winkel) {
 
 void Servo::Winkel(bool offen) { 
 
-  uint16_t obere_grenze = 700; //ms
-  uint16_t untere_grenze = 1060; //ms
+  uint16_t obere_grenze = 2000; //ms
+  uint16_t untere_grenze = 1000; //ms
 
   if (offen) {
-    Einschaltdauer = obere_grenze;
-  } else {
     Einschaltdauer = untere_grenze;
+  } else {
+    Einschaltdauer = obere_grenze;
   }
 }
 

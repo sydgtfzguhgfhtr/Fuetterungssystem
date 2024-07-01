@@ -13,6 +13,7 @@ uint64_t zeit_alt;
 uint32_t futtermenge = 100;
 uint32_t fuetterzeit = 2000;
 uint16_t messzeit = 50;
+float entf;
 
 const String topic_fuettern = "/Fuetterung/fuettern";
 const String topic_auf = "/Fuetterung/auf";
@@ -67,12 +68,13 @@ void fuetterung() {
     messen = true;
   }
   if ((millis() - zeit_alt >= messzeit) && messen) {
+    client.publish(topic_fuellstand_senden, String(entf));
     messen = false;
   }
 
   servo.Winkel(servo_auf);
   servo.Halten();
-  // us.messung(messen);
+  entf = us.messung(messen);
 }
 
 

@@ -16,7 +16,7 @@ Servo::Servo(uint8_t PIN, float Frequenz, bool winkel) {
 void Servo::Winkel(bool offen) { 
 
   uint16_t obere_grenze = 2000; //ms
-  uint16_t untere_grenze = 1000; //ms
+  uint16_t untere_grenze = 600; //ms
 
   if (offen) {
     Einschaltdauer = untere_grenze;

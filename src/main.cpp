@@ -10,8 +10,9 @@ bool fuettern = false;
 bool servo_auf = false;
 bool messen = false;
 uint64_t zeit_alt;
-uint32_t futtermenge = 100;
-uint32_t fuetterzeit = 2000;
+uint32_t futtermenge = 5;
+uint32_t gefuettert = futtermenge;
+uint32_t fuetterzeit = 400;
 uint16_t messzeit = 50;
 float entf;
 
@@ -19,8 +20,8 @@ const String topic_fuettern = "/Fuetterung/fuettern";
 const String topic_menge = "/Fuetterung/menge_aendern";
 const String topic_fuellstand_senden = "/Fuetterung_fuellstand";
 
-const char ssid[] = "Galaxy A52s 5G0AE6";
-const char pass[] = "---------";
+const char ssid[] = "Galaxy A52";
+const char pass[] = "xxxxxxxx";
 WiFiClient net;
 MQTTClient client;
 uint64_t alte_zeit_mqtt = millis();
@@ -59,26 +60,19 @@ void fuetterung() {
     }
   }
   if (fuettern) {
+      zeit_alt = millis();
+      servo_auf = true;
+      fuettern = false;
+    }
+  if ((millis() - zeit_alt >= fuetterzeit * 2) && servo_auf) {
+      servo_auf = false;
+      zeit_alt = millis();
+  }
+  if (!servo_auf && gefuettert <= futtermenge && (millis() - zeit_alt >= fuetterzeit)) {
     zeit_alt = millis();
     servo_auf = true;
-    fuettern = false;
-  }
-  if ((millis() - zeit_alt >= fuetterzeit) && servo_auf) {
-    servo_auf = false;
+    gefuettert++;
     zeit_alt = millis();
-    messen = true;
-  }
-  if ((millis() - zeit_alt >= messzeit) && messen) {
-    entf = us.messung();
-    if (entf == -1) {
-      messen = true;
-    } else if (entf == -10) {
-      messen = false;
-      client.publish(topic_fuellstand_senden, "Fehler beim Messen; Messung wird abgebrochen!");
-    } else {
-      client.publish(topic_fuellstand_senden, String(us.fuellstand(entf)));
-      messen = false;
-    }
   }
 }
 
@@ -88,11 +82,11 @@ void messageReceived(String &topic, String &payload) {
   Serial.println("incoming: " + topic + " - " + payload);
   if (topic == topic_fuettern) {
     fuettern = true;
+    gefuettert = 2;
     Serial.println("Fuettern");
   }
   if (topic == topic_menge) {
     futtermenge = payload.toInt();
-    fuetterzeit = futtermenge;
     Serial.print("menge:");
     Serial.println(futtermenge);
   }

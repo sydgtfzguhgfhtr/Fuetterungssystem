@@ -12,16 +12,18 @@ bool messen = false;
 uint64_t zeit_alt;
 uint32_t futtermenge = 5;
 uint32_t gefuettert = futtermenge;
-uint32_t fuetterzeit = 400;
+uint32_t fuetterzeit = 800;
 uint16_t messzeit = 50;
 float entf;
+uint16_t fuellstand = 574;
 
 const String topic_fuettern = "/Fuetterung/fuettern";
 const String topic_menge = "/Fuetterung/menge_aendern";
 const String topic_fuellstand_senden = "/Fuetterung_fuellstand";
+const String topic_auffuellen = "/Fuetterung_Futter_auffuellen";
 
 const char ssid[] = "Galaxy A52";
-const char pass[] = "xxxxxxxx";
+const char pass[] = "xxxxxxxxx";
 WiFiClient net;
 MQTTClient client;
 uint64_t alte_zeit_mqtt = millis();
@@ -84,11 +86,18 @@ void messageReceived(String &topic, String &payload) {
     fuettern = true;
     gefuettert = 2;
     Serial.println("Fuettern");
+    fuellstand -= futtermenge;
+    client.publish(topic_fuellstand_senden, String(fuellstand*11));
   }
   if (topic == topic_menge) {
-    futtermenge = payload.toInt();
+    uint16_t futtermenge_ein = payload.toInt();
+    futtermenge = futtermenge_ein / 11;
+    gefuettert = futtermenge+1;
     Serial.print("menge:");
     Serial.println(futtermenge);
+  }
+  if (topic == topic_auffuellen) {
+    fuellstand = 574;
   }
 }
 

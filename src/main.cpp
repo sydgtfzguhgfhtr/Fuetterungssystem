@@ -13,13 +13,13 @@ uint32_t gefuettert = futtermenge;
 uint32_t fuetterzeit = 800;
 uint16_t fuellstand = 574;
 
-const String topic_fuettern = "/Fuetterung/fuettern";
-const String topic_menge = "/Fuetterung/menge_aendern";
-const String topic_fuellstand_senden = "/Fuetterung_fuellstand";
-const String topic_auffuellen = "/Fuetterung_Futter_auffuellen";
+const String topic_fuettern = "Fuetterung/fuettern";
+const String topic_menge = "Fuetterung/menge_aendern";
+const String topic_fuellstand_senden = "Fuetterung_fuellstand";
+const String topic_auffuellen = "Fuetterung_Futter_auffuellen";
 
-const char ssid[] = "Galaxy A52";
-const char pass[] = "udbiJge7w8";
+const char ssid[] = "LaborRobotik";
+const char pass[] = "Robotik1234";
 WiFiClient net;
 MQTTClient client;
 uint64_t alte_zeit_mqtt = millis();
@@ -111,7 +111,7 @@ void connect() {
   }
 
   Serial.print("\nconnected!");
-  client.subscribe("/Fuetterung/menge_aendern");
-  client.subscribe("/Fuetterung/fuettern");
+  client.subscribe("Fuetterung/menge_aendern");
+  client.subscribe("Fuetterung/fuettern");
   Serial.println("erfolgreich");
 }

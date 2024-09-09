@@ -1,11 +1,9 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>  
 #include <MQTT.h>
-#include "Ultraschallsensor.h"
 #include "Servo.h"
 
 Servo servo(D9,50,false);
-Ultraschallsensor us(D6,D7);
 bool fuettern = false;
 bool servo_auf = false;
 bool messen = false;
@@ -13,8 +11,6 @@ uint64_t zeit_alt;
 uint32_t futtermenge = 5;
 uint32_t gefuettert = futtermenge;
 uint32_t fuetterzeit = 800;
-uint16_t messzeit = 50;
-float entf;
 uint16_t fuellstand = 574;
 
 const String topic_fuettern = "/Fuetterung/fuettern";
@@ -23,7 +19,7 @@ const String topic_fuellstand_senden = "/Fuetterung_fuellstand";
 const String topic_auffuellen = "/Fuetterung_Futter_auffuellen";
 
 const char ssid[] = "Galaxy A52";
-const char pass[] = "xxxxxxxxx";
+const char pass[] = "udbiJge7w8";
 WiFiClient net;
 MQTTClient client;
 uint64_t alte_zeit_mqtt = millis();

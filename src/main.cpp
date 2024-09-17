@@ -10,7 +10,7 @@ bool messen = false;
 uint64_t zeit_alt;
 uint32_t futtermenge = 5;
 uint32_t gefuettert = futtermenge;
-uint32_t fuetterzeit = 800;
+uint32_t fuetterzeit = 1100;
 uint16_t fuellstand = 574;
 
 const String topic_fuettern = "Fuetterung/fuettern";
@@ -41,6 +41,7 @@ void setup() {
 
 void loop() {
   fuetterung();
+  // servo.einstellen();
 }
 
 //Funktionen:
@@ -94,6 +95,7 @@ void messageReceived(String &topic, String &payload) {
   }
   if (topic == topic_auffuellen) {
     fuellstand = 574;
+    client.publish(topic_fuellstand_senden, String(fuellstand*11));
   }
 }
 
@@ -113,5 +115,6 @@ void connect() {
   Serial.print("\nconnected!");
   client.subscribe("Fuetterung/menge_aendern");
   client.subscribe("Fuetterung/fuettern");
+  client.subscribe("Fuetterung_Futter_auffuellen");
   Serial.println("erfolgreich");
 }
